@@ -78,10 +78,10 @@ class CalendarExporter:
         self.rq = Rest()
 
     def update_calendar(self):
+        self.delete_shedule_data()
         self.rq.update_schedule()
         self.clear_calendar()
         self.fill_calendar()
-        self.delete_shedule_data()
 
     def create_event(self, lesson_data):
         self.service.events().insert(calendarId=self.calendar_id, body=get_event_body(lesson_data)).execute()
