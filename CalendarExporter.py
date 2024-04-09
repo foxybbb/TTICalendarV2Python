@@ -36,6 +36,7 @@ def authenticate_google_calendar():
 
 
 def get_lesson_description(lesson_data):
+    print(lesson_data)
     return 'Лектор: {}\nАудитория: {}\nПримечание: {}'.format(lesson_data[3], lesson_data[1], lesson_data[5])
 
 
@@ -82,7 +83,7 @@ def get_event_body(lesson_data):
             ],
         },
     }
-    print(data)
+    # print(data)
     return data
 
 

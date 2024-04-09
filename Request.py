@@ -118,7 +118,10 @@ class Rest:
 
     def get_lesson_list(self):
         for lesson in self.lesson_list:
-            lesson[1] = get_name_by_key(self.tsi_data, 'rooms', str(lesson[1]))
+            # print(lesson)
+
+            lesson[1] = get_name_by_key(self.tsi_data, 'rooms', str(lesson[1][0]))
+            print(lesson)
             if schedule_data['teachers'] == '':
                 lesson[2] = get_name_by_key(self.tsi_data, 'groups', str(lesson[2][0]))
             else:
