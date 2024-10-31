@@ -44,22 +44,25 @@ def get_calendar_id():
     return google_caledar['calendar_id']
 
 
+
+
+
+
 def get_event_body(lesson_data):
     time_zone = 'Europe/Riga'
-    TSI_Location = 'Институт транспорта и связи, Lomonosova iela 1, Latgales priekšpilsēta, Rīga, LV-1019, Латвия'
+    TSI_Location = 'Институт транспорта и связи, Lauvas iela 2, Latgales priekšpilsēta, Rīga, LV-1019, Латвия'
 
     start_time = datetime.fromtimestamp(lesson_data[0])
     # timezone = pytz.timezone(time_zone)
     #
     march_31 = datetime(year=datetime.now().year, month=3, day=31)
-    october_27 = datetime(year=datetime.now().year, month=10, day=27) # TODO
-    # if start_time > october_27:
-    #     start_time = start_time - timedelta(hours=2)
-    # else:
+    october_27 = datetime(year=datetime.now().year, month=10, day=27) #
+    if start_time > october_27:
+        start_time = start_time + timedelta(hours=1)
+        
     if start_time > march_31:
         start_time = start_time - timedelta(hours=3)
-    else:
-        start_time = start_time - timedelta(hours=2)
+    
 
     end_time = start_time + timedelta(hours=1, minutes=30)
     print(start_time)
@@ -79,12 +82,13 @@ def get_event_body(lesson_data):
             'useDefault': False,
             'overrides': [
                 # {'method': 'email', 'minutes': 24 * 60},
-                {'method': 'popup', 'minutes': 10},
+                {'method': 'popup', 'minutes': 15},
             ],
         },
     }
     # print(data)
     return data
+
 
 
 
