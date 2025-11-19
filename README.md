@@ -1,9 +1,9 @@
 # TSI Calendar v2+
 
-$${\color{red}
+<code style="color : Red">
 After the latest system updates, it became impossible to obtain the schedule via the link (11.2025).  
 Data retrieval was rewritten using the mobile application backend.
-$$
+</code>
 
 
 A Python application to scrape calendar events from the Transport and Telecommunication Institute (TSI) portal and export them to various formats.
