@@ -1,20 +1,25 @@
-# TSI Calendar Scraper v2
+# TSI Calendar v2+
+
+<strong style="color:red">
+After the latest system updates, it became impossible to obtain the schedule via the link (11.2025).  
+Data retrieval was rewritten using the mobile application backend.
+</strong>
+
 
 A Python application to scrape calendar events from the Transport and Telecommunication Institute (TSI) portal and export them to various formats.
 
 ## Features
 
-- **Authentication**: Secure login to TSI mob-back portal
-- **Flexible Filtering**: Filter by room, lecturer, group, and event type
+- **Authentication**: Secure login to TSI mob portal
+- **Filtering**: Filter by room, lecturer, group, and event type
 - **Date Range Support**: Fetch events for multiple months
 - **Multiple Export Formats**:
-  - **Table**: Display events in formatted table in terminal
-  - **JSON**: Export to JSON file for further processing
-  - **ICS**: Export to iCalendar format (compatible with Google Calendar, Outlook, Apple Calendar)
-  - **Google Calendar**: Direct export to Google Calendar (requires API setup)
+  - **Table**
+  - **JSON**
+  - **ICS**
+  - **Google Calendar** (requires API setup)
 - **Sorting Options**: Sort by date, room, lecturer, group, or time
-- **Filter Canceled Events**: Option to show or hide canceled events
-- **DST Support**: Automatic handling of Daylight Saving Time transitions (winter/summer time) for accurate calendar times
+
 
 ## Installation
 

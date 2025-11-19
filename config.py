@@ -12,7 +12,6 @@ FILTERS = {
     "type": "reset_type"       # Event type filter or "reset_type" for all
 }
 
-# Date range for calendar data
 DATE_RANGE = {
     "from_year": 2025,
     "from_month": 9,    # September
@@ -23,12 +22,12 @@ DATE_RANGE = {
 # Display options
 DISPLAY = {
     "sort_by": "date",  # Options: "date", "room", "lecturer", "group", "time"
-    "show_canceled": True  # Show canceled events
+    "show_canceled": True  
 }
 
-# Output options
+
 OUTPUT = {
-    "formats": ["table", "ics"],  # Options: "table", "json", "ics", "google_calendar"
+    "formats": ["table", "ics"],  # Options: "table", "json", "ics", "google_calendar" for google folow MD file
     "json_file": "calendar_tsi.json",
     "ics_file": "calendar_tsi.ics",
 }
