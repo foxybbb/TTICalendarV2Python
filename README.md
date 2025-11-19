@@ -1,7 +1,6 @@
 # TSI Calendar v2+
 
-<code style="color : Red">
-After the latest system updates, it became impossible to obtain the schedule via the link (11.2025).  
+<code style="color : red">After the latest system updates, it became impossible to obtain the schedule via the link (11.2025).  
 Data retrieval was rewritten using the mobile application backend.
 </code>
 
