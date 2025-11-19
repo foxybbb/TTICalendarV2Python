@@ -1,0 +1,51 @@
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Generated calendar files
+*.json
+*.ics
+calendar_*.json
+calendar_*.ics
+
+# Credentials (IMPORTANT - never commit these!)
+credentials.json
+token.json
+*.token
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config with sensitive data (create config.py from config.py.example)
+# Uncomment if you want to protect credentials:
+# config.py
+
+# Logs
+*.log
+
+# Test files
+test_*.html
+

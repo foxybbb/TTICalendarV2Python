@@ -1,98 +1,258 @@
+# TSI Calendar Scraper v2
 
+A Python application to scrape calendar events from the Transport and Telecommunication Institute (TSI) portal and export them to various formats.
 
-# TTI Calendar v2 
+## Features
 
+- **Authentication**: Secure login to TSI mob-back portal
+- **Flexible Filtering**: Filter by room, lecturer, group, and event type
+- **Date Range Support**: Fetch events for multiple months
+- **Multiple Export Formats**:
+  - **Table**: Display events in formatted table in terminal
+  - **JSON**: Export to JSON file for further processing
+  - **ICS**: Export to iCalendar format (compatible with Google Calendar, Outlook, Apple Calendar)
+  - **Google Calendar**: Direct export to Google Calendar (requires API setup)
+- **Sorting Options**: Sort by date, room, lecturer, group, or time
+- **Filter Canceled Events**: Option to show or hide canceled events
+- **DST Support**: Automatic handling of Daylight Saving Time transitions (winter/summer time) for accurate calendar times
 
+## Installation
 
-## Installing
-
-A step-by-step series of examples that tell you how to get a development environment running.
-Setting up a Virtual Environment
-1. Open your terminal and navigate to the project directory. 
-2. Create a virtual environment by running:
-```python
-python3 -m venv venv
-```
-
-3. Activate the virtual environment:
-- On Windows:
-
-```
-.\venv\Scripts\activate
-```
-- On Unix or MacOS:
-
+1. Install dependencies:
 ```bash
-source venv/bin/activate
-```
-        
-
-Installing Required Packages
-
-Install all the required packages using the requirements.txt file:
-
-```bash 
 pip install -r requirements.txt
 ```
 
-## Google Calendar API Setup
-*** Information copied from https://developers.google.com/calendar/api/quickstart/python
+2. Configure your credentials in `config.py`:
+```python
+USERNAME = "your_username"
+PASSWORD = "your_password"
+```
 
-To use the Google Calendar API, you'll need to enable the API and obtain the necessary credentials. Follow these steps:
+## Configuration
 
-### Enable the API
-Before using Google APIs, you need to turn them on in a Google Cloud project. You can turn on one or more APIs in a single Google Cloud project.
+Edit `config.py` to customize:
 
-- In the Google Cloud console, enable the Google Calendar API.  https://console.cloud.google.com/flows/enableapi?apiid=calendar-json.googleapis.com
+### Filters
+```python
+FILTERS = {
+    "room": "reset_room",        # Specific room or "reset_room" for all
+    "lecturer": "Gercevs",       # Lecturer name or "reset_lecturer" for all
+    "group": "3903BDA",          # Group code or "reset_group" for all
+    "type": "reset_type"         # Event type or "reset_type" for all
+}
+```
 
-### Configure the OAuth 
+### Date Range
+```python
+DATE_RANGE = {
+    "from_year": 2025,
+    "from_month": 9,     # September
+    "to_year": 2025,
+    "to_month": 12       # December
+}
+```
 
-If you're using a new Google Cloud project to complete this quickstart, configure the OAuth consent screen and add yourself as a test user. If you've already completed this step for your Cloud project, skip to the next section.
+### Display Options
+```python
+DISPLAY = {
+    "sort_by": "date",         # Options: "date", "room", "lecturer", "group", "time"
+    "show_canceled": True      # Show or hide canceled events
+}
+```
 
-In the Google Cloud console, go to Menu menu > APIs & Services > OAuth consent screen.
+### Output Formats
+```python
+OUTPUT = {
+    "formats": ["table", "json", "ics"],  # Choose which formats to export
+    "json_file": "calendar_events.json",
+    "ics_file": "calendar_events.ics",
+}
+```
 
-1. Go to OAuth consent screen \
-    https://console.cloud.google.com/flows/enableapi?apiid=calendar-json.googleapis.com
-2. For User type select Internal, then click Create.
-3. Complete the app registration form, then click Save and Continue.
+## Usage
 
-4. For now, you can skip adding scopes and click Save and Continue. In the future, when you create an app for use outside of your Google Workspace organization, you must change the User type to External, and then, add the authorization scopes that your app requires.
-5. Review your app registration summary. To make changes, click Edit. If the app registration looks OK, click Back to Dashboard.
-
-** In the latest version of the API, add your email as, tester email, to access calendars.
-
-### Authorize credentials for a desktop application
-To authenticate end users and access user data in your app, you need to create one or more OAuth 2.0 Client IDs. A client ID is used to identify a single app to Google's OAuth servers. If your app runs on multiple platforms, you must create a separate client ID for each platform. 
-
-1. In the Google Cloud console, go to Menu menu > APIs & Services > Credentials.
-
-2. Go to Credentials \
-   https://console.cloud.google.com/apis/credentials
-
-3. Click Create Credentials > OAuth client ID.
-4. Click Application type > Desktop app.
-5. In the Name field, type a name for the credential. This name is only shown in the Google Cloud console.
-6. Click Create. The OAuth client created screen appears, showing your new Client ID and Client secret.
-7. Click OK. The newly created credential appears under OAuth 2.0 Client IDs.
-8. Save the downloaded JSON file as `credentials.json`, and move the file to your working directory.
-
-## Running the Project
-
-### Setting Student data
-    
-Change the information about your group in the `DataPayload.py` file, also need to maintain a calendar id. 
-
-`! It is important to create a new calendar, the programme deletes all events for the year.`
-
-After setting up the environment and the API, you can run the project:
-
+Run the main script:
 ```bash
 python main.py
 ```
+
+The script will:
+1. Authenticate with TSI portal
+2. Fetch calendar data for the specified period
+3. Filter and sort events
+4. Export to the specified formats
+
+## Output Formats
+
+### Table Output
+Displays events in a formatted table in the terminal:
+```
+Date         | Time          | Title                      | Room       | Group    | Lecturer  | Type   | Note
+2025-11-01 S | 08:45-10:15   | Electronics...             | L8 (125)   | 3401BNA  | Gercevs   | Lesson | -
+```
+
+### JSON Output
+Exports events to a JSON file:
+```json
+[
+  {
+    "date": "2025-11-01",
+    "start_time": "08:45",
+    "end_time": "10:15",
+    "title": "Electronics and Microelectronics",
+    "room": "L8 (125)",
+    "group": "3401BNA, 3403BNA",
+    "lecturer": "Gercevs Ivans",
+    "type": "Lesson",
+    "description": ""
+  }
+]
+```
+
+### ICS Output
+Creates an iCalendar file compatible with:
+- Google Calendar
+- Microsoft Outlook
+- Apple Calendar
+- Other calendar applications
+
+Import by:
+1. Opening your calendar application
+2. Selecting "Import Calendar"
+3. Choosing the `calendar_events.ics` file
+
+### Google Calendar Export
+
+To use Google Calendar direct export:
+
+1. Enable Google Calendar API:
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project
+   - Enable Google Calendar API
+   - Create OAuth 2.0 credentials
+   - Download as `credentials.json`
+
+2. Configure in `config.py`:
+```python
+GOOGLE_CALENDAR = {
+    "calendar_id": "your_calendar_id@group.calendar.google.com",
+    "credentials_file": "credentials.json",
+    "token_file": "token.json",
+    "timezone": "Europe/Riga",
+    "location": "Transport and Telecommunication Institute, Lauvas iela 2, Riga, LV-1019, Latvia"
+}
+```
+
+3. Add `"google_calendar"` to output formats:
+```python
+OUTPUT = {
+    "formats": ["table", "json", "ics", "google_calendar"],
+}
+```
+
+## Examples
+
+### Example 1: Get all events for a lecturer
+```python
+FILTERS = {
+    "room": "reset_room",
+    "lecturer": "Gercevs",
+    "group": "reset_group",
+    "type": "reset_type"
+}
+```
+
+### Example 2: Get events for a specific group
+```python
+FILTERS = {
+    "room": "reset_room",
+    "lecturer": "reset_lecturer",
+    "group": "5502DTL",
+    "type": "reset_type"
+}
+```
+
+### Example 3: Get events in a specific room
+```python
+FILTERS = {
+    "room": "L1 (125)",
+    "lecturer": "reset_lecturer",
+    "group": "reset_group",
+    "type": "reset_type"
+}
+```
+
+### Example 4: Sort by room
+```python
+DISPLAY = {
+    "sort_by": "room",
+    "show_canceled": False  # Hide canceled events
+}
+```
+
+## Project Structure
+
+```
+TTICalendarV2Python/
+├── config.py           # Configuration file
+├── main.py            # Main entry point
+├── TSICalendar.py     # Calendar scraper
+├── Exporters.py       # Export to various formats
+├── requirements.txt   # Dependencies
+└── README.md         # This file
+```
+
+## Timezone and DST Handling
+
+The application properly handles Daylight Saving Time (DST) transitions:
+
+- **Automatic DST Detection**: Uses `pytz` library to automatically detect whether DST is active for each event date
+- **Europe/Riga Timezone**: Configured for TSI location (GMT+2 in winter, GMT+3 in summer)
+- **Accurate Times**: Events exported to Google Calendar and ICS files will have correct local times regardless of DST
+- **No Manual Adjustments**: No need to manually adjust times for winter/summer transitions
+
+### How It Works
+
+The application uses timezone-aware datetime objects:
+```python
+# Before (naive datetime - incorrect DST handling):
+datetime(2025, 11, 15, 10, 30)  # Ambiguous - is this winter or summer time?
+
+# After (timezone-aware - correct DST handling):
+timezone.localize(datetime(2025, 11, 15, 10, 30))  # Automatically uses EET (winter)
+timezone.localize(datetime(2025, 9, 15, 10, 30))   # Automatically uses EEST (summer)
+```
+
+This ensures that:
+- Events in **summer** (March-October) are correctly marked as EEST (UTC+3)
+- Events in **winter** (November-March) are correctly marked as EET (UTC+2)
+- Calendar applications will display the correct local time
+
+## Requirements
+
+- Python 3.7+
+- requests
+- beautifulsoup4
+- python-dateutil
+- pytz (for proper DST handling)
+
+Optional (for ICS export):
+- ics
+
+Optional (for Google Calendar):
+- google-auth
+- google-auth-oauthlib
+- google-api-python-client
+
 ## License
 
-This project is licensed under the MIT License
+This project is for educational purposes.
 
-See also the list of contributors who participated in this project.
-License
+## Support
 
+For issues or questions, please check your configuration and ensure:
+- Credentials are correct
+- Date range is valid
+- Required packages are installed
+- Network connection is available
